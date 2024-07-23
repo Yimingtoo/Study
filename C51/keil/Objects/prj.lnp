@@ -1,0 +1,3 @@
+".\Objects\..\..\..\..\..\Work\TuringComplete\C51\keil\main.obj" 
+TO ".\Objects\prj" 
+PRINT(".\Listings\prj.m51") CODE( 0X0000-0X0FFF )

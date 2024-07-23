@@ -1,0 +1,102 @@
+### 指令译码器
+
+## A1 指令类型字段 + B1 操作数数量字段 + 目的操作数(C1 操作数寻址方式字段 [+ D1 寄存器寻址字段]) + 源操作数(C1 操作数寻址方式字段 [+ D1 寄存器寻址字段])
+# ADD A, IMM
+A1_ADD + B1_TWO + OP_D*(C1_R+D1_ACC) + OP_S*(C1_IMM)
+# MOV Rn, IMM
+A1_MOV + B1_TWO + OP_D*(C1_R+D1_RN) + OP_S*(C1_IMM)
+# ADD A, RN
+A1_ADD + B1_TWO + OP_D*(C1_R+D1_ACC) + OP_S*(C1_R+D1_RN)
+
+#-------------------------------#
+### 指令译码
+## 指令类型字段(6Bits)
+#                  _   _
+const A1_STEP 0x04000000
+const A1_NOP A1_STEP*00
+
+# 跳转指令
+const A1_JBC A1_STEP*01
+const A1_JB A1_STEP*02
+const A1_JNB A1_STEP*03
+const A1_JC A1_STEP*04
+const A1_JNC A1_STEP*05
+const A1_JZ A1_STEP*06
+const A1_JNZ A1_STEP*07
+const A1_JMP A1_STEP*08
+const A1_SJMP A1_STEP*09
+const A1_AJMP A1_STEP*10
+const A1_ACALL A1_STEP*11
+const A1_LJMP A1_STEP*12
+const A1_LCALL A1_STEP*13
+const A1_RET A1_STEP*14
+const A1_RETI A1_STEP*15
+const A1_CJNE A1_STEP*16
+const A1_DJNZ A1_STEP*17
+
+# 移动指令 
+const A1_MOV A1_STEP*18
+const A1_MOVC A1_STEP*19
+const A1_MOVX A1_STEP*20
+
+# 运算指令  
+# 逻辑运算   
+const A1_ORL A1_STEP*21
+const A1_ANL A1_STEP*22
+const A1_XRL A1_STEP*23
+const A1_CPL A1_STEP*24
+const A1_CLR A1_STEP*25
+const A1_SETB A1_STEP*26
+# 算数运算  
+const A1_INC A1_STEP*27
+const A1_DEC A1_STEP*28
+const A1_ADD A1_STEP*29
+const A1_ADDC A1_STEP*30
+const A1_SUBB A1_STEP*31
+const A1_MUL A1_STEP*32
+const A1_DIV A1_STEP*33
+
+# 其他指令  
+const A1_RR A1_STEP*34
+const A1_RRC A1_STEP*35
+const A1_RL A1_STEP*36
+const A1_RLC A1_STEP*37
+const A1_SWAP A1_STEP*38
+const A1_XCH A1_STEP*39
+const A1_XCHD A1_STEP*40
+const A1_DA A1_STEP*41
+
+## 操作数数量字段(2Bits)
+#                  _   _
+const B1_STEP 0x01000000
+
+const B1_ZERO B1_STEP*0
+const B1_ONE B1_STEP*1
+const B1_TWO B1_STEP*2
+
+## 操作数类型字段(8Bits)
+#               _   _
+const OP_S 0x00000001
+const OP_D 0x00000100
+# 寻址方式(3Bits)
+#                  _   _
+const C1_STEP 0x0000020
+const C1_R C1_STEP*01   # 寄存器寻址
+const C1_DIR C1_STEP*02 # 直接寻址
+const C1_RIN C1_STEP*03 # 寄存器间接寻址
+const C1_IMM C1_STEP*04 # 立即数寻址
+const C1_AC C1_STEP*05  # 变址寻址
+const C1_BIT C1_STEP*06 # 位寻址
+const C1_REL C1_STEP*07  # 相对寻址（程序转移）
+
+# 寄存器寻址(5Bits)
+#                  _   _
+const D1_STEP 0x00000001
+const D1_RN D1_STEP*01
+const D1_ACC D1_STEP*02
+const D1_B D1_STEP*03
+const D1_CY D1_STEP*04
+const D1_PSW D1_STEP*05
+const D1_SP D1_STEP*06
+const D1_DPTRL D1_STEP*07
+const D1_DPTRH D1_STEP*08

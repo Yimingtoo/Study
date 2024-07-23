@@ -1,0 +1,54 @@
+A51 MACRO ASSEMBLER  MAIN                                                                 07/18/2024 11:48:22 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\..\..\..\..\..\Work\TuringComplete\C51\keil\main.obj
+ASSEMBLER INVOKED BY: D:\Install\Install_N\Keil_v5\Keil_v5\C51\BIN\A51.EXE D:\Work\TuringComplete\C51\keil\main.a51 SET(
+                      SMALL) DEBUG PRINT(.\Listings\..\..\..\..\..\Work\TuringComplete\C51\keil\main.lst) OBJECT(.\Objec
+                      ts\..\..\..\..\..\Work\TuringComplete\C51\keil\main.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 0130              2     AJMP START
+0030                   3     ORG 0030H
+                       4     
+                       5     
+0030                   6     START:
+0030 00                7     NOP
+0031 00                8     NOP
+0032 00                9     NOP
+0033 00               10     NOP
+0034 758130           11     MOV SP,#30H
+0037 C0E0             12     PUSH ACC
+0039 C0D0             13     PUSH PSW
+003B 113F             14     ACALL FUN
+003D 0130             15     AJMP START
+                      16     
+                      17     
+003F                  18     FUN:
+003F 00               19     NOP
+0040 00               20     NOP
+0041 00               21     NOP
+0042 00               22     NOP
+0043 22               23     RET
+                      24     END
+A51 MACRO ASSEMBLER  MAIN                                                                 07/18/2024 11:48:22 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+FUN. . . . . . . .  C ADDR   003FH   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+START. . . . . . .  C ADDR   0030H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

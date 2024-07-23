@@ -1,0 +1,430 @@
+### 微程序控制器
+
+label FETCH_INSTR
+1+ (F_PC_OUT+H_PAR_IN)  +FETCH_INSTR
+2+ (D_PROG_OUT+C_IR_IN)+(F_PCI_OUT+G_PC_IN)+(Z_CMD) +FETCH_INSTR
+
+
+# JMP TO NOP
+JMP_NOP
+# JMP TO JBC
+JMP_JBC
+# JMP TO JB
+JMP_JB
+# JMP TO JNB
+JMP_JNB
+# JMP TO JC
+JMP_JC
+# JMP TO JNC
+JMP_JNC
+# JMP TO JZ
+JMP_JZ
+# JMP TO JNZ
+JMP_JNZ
+# JMP TO JMP
+JMP_JMP
+# JMP TO SJMP
+JMP_SJMP
+# JMP TO AJMP
+JMP_AJMP
+# JMP TO ACALL
+JMP_ACALL
+# JMP TO LJMP
+JMP_LJMP
+# JMP TO LCALL
+JMP_LCALL
+# JMP TO RET
+JMP_RET
+# JMP TO RETI
+JMP_RETI
+# JMP TO CJNE
+JMP_CJNE
+# JMP TO DJNZ
+JMP_DJNZ
+# JMP TO MOV
+JMP_MOV
+# JMP TO MOVC
+JMP_MOVC
+# JMP TO MOVX
+JMP_MOVX
+# JMP TO ORL
+JMP_ORL
+# JMP TO ANL
+JMP_ANL
+# JMP TO XRL
+JMP_XRL
+# JMP TO CPL
+JMP_CPL
+# JMP TO CLR
+JMP_CLR
+# JMP TO SETB
+JMP_SETB
+# JMP TO INC
+JMP_INC
+# JMP TO DEC
+JMP_DEC
+# JMP TO ADD
+JMP_ADD
+# JMP TO ADDC
+JMP_ADDC
+# JMP TO SUBB
+JMP_SUBB
+# JMP TO MUL
+JMP_MUL
+# JMP TO DIV
+JMP_DIV
+# JMP TO PUSH
+JMP_PUSH
+# JMP TO POP
+JMP_POP
+# JMP TO RR
+JMP_RR
+# JMP TO RRC
+JMP_RRC
+# JMP TO RL
+JMP_RL
+# JMP TO RLC
+JMP_RLC
+# JMP TO SWAP
+JMP_SWAP
+# JMP TO XCH
+JMP_XCH
+# JMP TO XCHD
+JMP_XCHD
+# JMP TO DA
+JMP_DA
+
+
+label JMP_NOP
+label JMP_JBC
+label JMP_JB
+label JMP_JNB
+label JMP_JC
+label JMP_JNC
+label JMP_JZ
+label JMP_JNZ
+label JMP_JMP
+label JMP_SJMP
+label JMP_AJMP
+label JMP_ACALL
+label JMP_LJMP
+label JMP_LCALL
+label JMP_RET
+label JMP_RETI
+label JMP_CJNE
+label JMP_DJNZ
+label JMP_MOV
+Z_CALL+Z_SRC + JMP_SRC1_OP              # 1+JMP_MOV
+    Z_DST + JMP_DST_MOV                 # 2+JMP_MOV
+    Z_INT+ FETCH_INSTR                  # 3+JMP_MOV
+label JMP_MOVC
+label JMP_MOVX
+label JMP_ORL
+label JMP_ANL
+label JMP_XRL
+label JMP_CPL
+label JMP_CLR
+label JMP_SETB
+label JMP_INC
+label JMP_DEC
+label JMP_ADD
+Z_CALL+Z_SRC + JMP_SRC1_OP              # 1+JMP_ADD
+    Z_DST + JMP_SRC2_OP                 # 2+JMP_ADD
+(A_ADD+D_ALU_OUT + J_A+B_RAM_IN) +Z_BACK+ 3+JMP_ADD
+Z_INT+ FETCH_INSTR                      # 4+JMP_ADD
+label JMP_ADDC
+label JMP_SUBB
+label JMP_MUL
+label JMP_DIV
+label JMP_PUSH
+label JMP_POP
+label JMP_RR
+label JMP_RRC
+label JMP_RL
+label JMP_RLC
+label JMP_SWAP
+label JMP_XCH
+label JMP_XCHD
+label JMP_DA
+
+label JMP_SRC1_OP
+# NULL
+0
+# SRC1 RN
+(J_RN+B_RAM_OUT + C_TMP1_IN)+Z_RET
+# SRC1 ACC
+(J_A+B_RAM_OUT + C_TMP1_IN)+Z_RET
+# SRC1 B
+(J_B+C_TMP1_IN)+Z_RET
+# SRC1 CY
+(J_CY+C_TMP1_IN)+Z_RET
+# SRC1 DPTR
+0
+# SRC1 DIR
+(F_PC_OUT+H_PAR_IN) +SRC1_DIR
+# SRC1 A_RI
+(J_RN+B_RAM_OUT+E_MAR_IN) +SRC1_A_RI
+# SRC1 A_DPTR
+0
+# SRC1 A_SP
+(J_SP+B_RAM_OUT+E_MAR_IN) +SRC1_A_SP
+# SRC1 IMM8
+(F_PC_OUT+H_PAR_IN) +SRC1_IMM8
+# SRC1 IMM16
+0
+# SRC1 AC_DPTR
+0
+# SRC1 AC_PC
+0
+# SRC1 BIT
+(F_PC_OUT+H_PAR_IN) +SRC1_BIT
+
+label SRC1_DIR
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC1_DIR
+(J_RAM+B_RAM_OUT + C_TMP1_IN) +Z_RET
+label SRC1_A_RI
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC1_A_RI
+(J_RAM+B_RAM_OUT + C_TMP1_IN) +Z_RET
+label SRC1_A_DPTR
+label SRC1_A_SP
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC1_A_SP
+(J_RAM+B_RAM_OUT + C_TMP1_IN) +Z_RET
+label SRC1_IMM8
+(D_PROG_OUT+C_TMP1_IN)+(F_PCI_OUT+G_PC_IN) +Z_RET
+label SRC1_IMM16
+label SRC1_AC_DPTR
+label SRC1_AC_PC
+label SRC1_BIT
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC1_BIT
+(J_RAM+K_BIT_EN+B_RAM_OUT + C_TMP1_IN) +Z_RET
+
+label JMP_SRC2_OP
+# NULL
+0
+# SRC2 RN
+(J_RN+B_RAM_OUT + C_TMP2_IN)+Z_RET
+# SRC2 ACC
+(L_TMP2_CTRL+C_TMP2_IN)+Z_RET
+# SRC2 B
+(J_B+C_TMP2_IN)+Z_RET
+# SRC2 CY
+(J_CY+C_TMP2_IN)+Z_RET
+# SRC2 DPTR
+0
+# SRC2 DIR
+(F_PC_OUT+H_PAR_IN) +SRC2_DIR
+# SRC2 A_RI
+(J_RN+B_RAM_OUT+E_MAR_IN) +SRC2_A_RI
+# SRC2 A_DPTR
+0
+# SRC2 A_SP
+(J_SP+B_RAM_OUT+E_MAR_IN) +SRC2_A_SP
+# SRC2 IMM8
+(F_PC_OUT+H_PAR_IN) +SRC2_IMM8
+# SRC2 IMM16
+0
+# SRC2 AC_DPTR
+0
+# SRC2 AC_PC
+0
+# SRC2 BIT
+(F_PC_OUT+H_PAR_IN) +SRC2_BIT
+
+label SRC2_DIR
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC2_DIR
+(J_RAM+B_RAM_OUT + C_TMP2_IN) +Z_RET
+label SRC2_A_RI
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC2_A_RI
+(J_RAM+B_RAM_OUT + C_TMP2_IN) +Z_RET
+label SRC2_A_DPTR
+label SRC2_A_SP
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC2_A_SP
+(J_RAM+B_RAM_OUT + C_TMP2_IN) +Z_RET
+label SRC2_IMM8
+(D_PROG_OUT+C_TMP2_IN)+(F_PCI_OUT+G_PC_IN) +Z_RET
+label SRC2_IMM16
+label SRC2_AC_DPTR
+label SRC2_AC_PC
+label SRC2_BIT
+(D_PROG_OUT+E_MAR_IN)+(F_PCI_OUT+G_PC_IN) +1+SRC2_BIT
+(J_RAM+K_BIT_EN+B_RAM_OUT + C_TMP2_IN) +Z_RET
+
+label JMP_DST_MOV
+# DST RN
+(A_TRANS+D_ALU_OUT+J_RN+B_RAM_IN)+Z_RET
+# DST ACC
+(A_TRANS+D_ALU_OUT+J_A+B_RAM_IN)+Z_RET
+# DST B
+(A_TRANS+D_ALU_OUT+J_B+B_RAM_IN)+Z_RET
+# DST CY
+(A_TRANS+D_ALU_OUT+J_CY+B_RAM_IN)+Z_RET
+# DST DPTR
+0
+# DST DIR
+0
+# DST A_RI
+0
+# DST A_DPTR
+0
+# DST A_SP
+0
+# DST IMM8
+0
+# DST IMM16
+0
+# DST AC_DPTR
+0
+# DST AC_PC
+0
+# DST BIT
+0
+
+
+label DST_MOV_RN
+label DST_MOV_ACC
+label DST_MOV_B
+label DST_MOV_CY
+label DST_MOV_DPTR
+label DST_MOV_DIR
+label DST_MOV_A_RI
+label DST_MOV_A_DPTR
+label DST_MOV_A_SP
+label DST_MOV_IMM8
+label DST_MOV_IMM16
+label DST_MOV_AC_DPTR
+label DST_MOV_AC_PC
+label DST_MOV_BIT
+
+
+### 定义各个字段
+## A字段(6Bits)  ALU控制字段
+#                 _   _   _   _
+const A_STEP 0x0400000000000000
+const A_TRANS 0x00
+# 逻辑操作
+const A_OR A_STEP*0x01
+const A_AND A_STEP*0x02
+const A_XOR A_STEP*0x03
+const A_NOT A_STEP*0x04
+# 算数操作
+const A_ADD A_STEP*0x05
+const A_SUBB A_STEP*0x06
+const A_MUL A_STEP*0x07
+const A_DIV A_STEP*0x08
+# 移位操作
+const A_RR A_STEP*0x09
+const A_RRC A_STEP*0x0a
+const A_LL A_STEP*0x0b
+const A_LLC A_STEP*0x0c
+# 其他
+const A_XCH A_STEP*0x0d
+const A_XCHD A_STEP*0x0e
+const A_DA A_STEP*0x0f
+
+## B字段(3Bits) RAM读写控制字段
+#                 _   _   _   _
+const B_STEP 0x0080000000000000
+const B_RAM_IN B_STEP*1
+const B_RAM_OUT B_STEP*2
+
+## C字段(2Bits) TMP1、TMP2和IR控制字段
+#                 _   _   _   _
+const C_STEP 0x0020000000000000
+const C_TMP1_IN C_STEP*0b01
+const C_TMP2_IN C_STEP*0b10
+const C_IR_IN C_STEP*0b11
+
+## D字段(3Bits) R->BUS
+#                 _   _   _   _
+const D_STEP 0x0004000000000000
+const D_ALU_OUT D_STEP*1
+const D_PROG_OUT D_STEP*2
+const D_RD_OUT D_STEP*3
+const D_RS_OUT D_STEP*4
+const D_BUFL_OUT D_STEP*5
+const D_BUFH_OUT D_STEP*6
+
+## E字段(3Bits) BUS -> R
+#                 _   _   _   _
+const E_STEP 0x0000800000000000
+const E_MAR_IN E_STEP*1
+const E_BUFL_IN E_STEP*2
+const E_BUFH_IN E_STEP*3
+#const E_MAR_IN E_STEP*4
+
+## F字段(2Bits) -> ABUS
+#                 _   _   _   _
+const F_STEP 0x0000100000000000
+const F_DPTR_OUT F_STEP*0b01
+const F_BUF_OUT F_STEP*0b10
+const F_PCI_OUT F_STEP*0b11
+const F_PC_OUT F_STEP*0b100
+
+## G字段(2Bits) ABUS ->
+#                 _   _   _   _
+const G_STEP 0x0000040000000000
+const G_DPTR_IN G_STEP*0b01
+const G_BUF_IN G_STEP*0b10
+const G_PC_IN G_STEP*0b11
+
+## H字段(2Bits) PAR
+#                 _   _   _   _
+const H_STEP 0x0000010000000000
+const H_PAR_IN H_STEP*0b10
+const H_PAR_OUT H_STEP*0b11
+
+## I字段(2Bits) SP 加减字段
+#                 _   _   _   _
+const I_STEP 0x0000004000000000
+const I_SP_DEC I_STEP*0b10
+const I_SP_INC I_STEP*0b11
+
+## J字段(4Bits) 存储选择字段
+##                _   _   _   _
+const J_STEP 0x0000000400000000
+const J_RAM J_STEP*1
+const J_RN J_STEP*2
+const J_A J_STEP*3
+const J_B J_STEP*4
+const J_CY J_STEP*5
+const J_SP J_STEP*6
+const J_PSW J_STEP*7
+
+## K字段(1Bit) 位操作控制字段
+#                 _   _   _   _
+const K_STEP 0x0000000200000000
+const K_BIT_EN K_STEP*0b1
+
+## L字段(1Bit) TMP1输入控制字段
+#                 _   _   _   _
+const L_STEP 0x0000000100000000
+const L_TMP2_CTRL L_STEP*0b1
+
+## M字段(1Bit)
+#                 _   _   _   _
+const M_STEP 0x0000000080000000
+const M_ M_STEP*0b1
+
+## N字段(1Bit)
+#                 _   _   _   _
+const N_STEP 0x0000000040000000
+const N_ N_STEP*0b1
+
+
+## Z字段（7Bits）转移控制字段
+#                 _   _   _   _
+const Z_STEP 0x0000000000010000
+
+const Z_RET Z_STEP*1
+const Z_CMD Z_STEP*2
+const Z_SRC Z_STEP*3
+const Z_DST Z_STEP*4
+const Z_INT Z_STEP*5
+const Z_INT Z_STEP*6 
+
+# 调用控制
+#                _   _   _   _
+const Z_CALL 0x0000000000200000
+# 返回跳转
+#                _   _   _   _
+const Z_BACK 0x0000000000700000
