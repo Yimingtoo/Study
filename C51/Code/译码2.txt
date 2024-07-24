@@ -1,12 +1,329 @@
 ### 指令译码器
+# 0x00 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x08 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
 
-## A1 指令类型字段 + B1 操作数数量字段 + 目的操作数(C1 操作数寻址方式字段 [+ D1 寄存器寻址字段]) + 源操作数(C1 操作数寻址方式字段 [+ D1 寄存器寻址字段])
+# 0x10 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x18 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0x20 --------------------#
+0
+0
+0
+0
 # ADD A, IMM
 A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_IMM8
+0
+0
+0
+# 0x28 --------------------#
 # ADD A, RN
 A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
-# MOV Rn, IMM
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_ADD + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+
+# 0x30 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x38 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0x40 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x48 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0x50 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x58 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0x60 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0x68 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0x70 --------------------#
+0
+0
+0
+0
+# MOV A, dir - 0x74
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_IMM8
+# MOV dir, IMM8 - 0x75
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_IMM8
+# MOV @Ri, IMM8 - 0x76
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_IMM8
+# 0x78 --------------------#
+# MOV Rn, IMM8
 A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_IMM8
+
+# 0x80 --------------------#
+0
+0
+0
+0
+0
+# MOV dir, dir - 0x85
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_DIR
+# MOV dir, @Ri - 0x86
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_A_RI
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_A_RI
+# 0x88 --------------------#
+# MOV dir, Rn
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_RN
+
+
+# 0x90 --------------------#
+# MOV DPTR, IMM16
+A1_MOV + B1_NULL + OP_D*C1_DPTR + OP_S*C1_IMM16
+0
+0
+0
+0
+0
+0
+0
+# 0x98 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0xA0 --------------------#
+0
+0
+0
+0
+0
+0
+# MOV @Ri, dir - 0xA6
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_DIR
+# 0xA8 --------------------#
+# MOV Rn, dir
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_DIR
+
+# 0xB0 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0xB8 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0xC0 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0xC8 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0xD0 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+# 0xD8 --------------------#
+0
+0
+0
+0
+0
+0
+0
+0
+
+# 0xE0 --------------------#
+0
+0
+0
+0
+0
+# MOV A, dir - 0xE5
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_DIR
+# MOV A, @Ri - 0xE6
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_A_RI
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_A_RI
+# 0xE8 --------------------#
+# MOV A, Rn
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+A1_MOV + B1_NULL + OP_D*C1_ACC + OP_S*C1_RN
+
+
+# 0xF0 --------------------#
+0
+0
+0
+0
+0
+# MOV dir, A - 0xF5
+A1_MOV + B1_NULL + OP_D*C1_DIR + OP_S*C1_ACC
+# MOV @Ri, A - 0xF6
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_A_RI + OP_S*C1_ACC
+# 0xF8 --------------------#
+# MOV Rn, A
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+A1_MOV + B1_NULL + OP_D*C1_RN + OP_S*C1_ACC
+
+
 
 #-------------------------------#
 ### 指令译码
